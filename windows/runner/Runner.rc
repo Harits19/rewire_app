@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com" "\0"
-            VALUE "FileDescription", "init_flutter" "\0"
+            VALUE "FileDescription", "Rewire App" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "init_flutter" "\0"
+            VALUE "InternalName", "Rewire App" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2022 com. All rights reserved." "\0"
             VALUE "OriginalFilename", "init_flutter.exe" "\0"
-            VALUE "ProductName", "init_flutter" "\0"
+            VALUE "ProductName", "Rewire App" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:init_flutter/ui/bottom_navigation/bottom_navigation_page.dart';
+import 'package:rewire_app/ui/bottom_navigation/bottom_navigation_page.dart';
 
 void main() async {
   runApp(
@@ -10,8 +10,14 @@ void main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  ConsumerState<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   Widget build(BuildContext context) {

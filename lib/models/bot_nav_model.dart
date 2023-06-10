@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:init_flutter/enum/bot_nav_enum.dart';
 
 class BotNavModel {
   final String label;

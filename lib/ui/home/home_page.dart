@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:init_flutter/ui/home/view/relapse_view.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:init_flutter/ui/views/gap.dart';
+import 'package:rewire_app/ui/home/view/relapse_view.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
+  @override
+  ConsumerState<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

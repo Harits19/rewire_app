@@ -29,6 +29,7 @@ environment:
 dependencies:
   cupertino_icons: ^1.0.2
   dio: ^4.0.4
+  fl_chart: ^0.62.0
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.3.6

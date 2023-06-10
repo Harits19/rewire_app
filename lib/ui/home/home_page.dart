@@ -20,11 +20,6 @@ class _HomePageState extends ConsumerState<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            ...ref
-                .watch(homeNotifier)
-                .relapseHistory
-                .value
-                .map((e) => Text(e.toString())),
             Text(
               '0',
               textAlign: TextAlign.center,
@@ -43,9 +38,9 @@ class _HomePageState extends ConsumerState<HomePage> {
             const SizedBox(
               height: 16,
             ),
-            const _StreakDetail(
+            _StreakDetail(
               title: 'Streak Sekarang : ',
-              subtitle: '0h 8j 45m 8d',
+              subtitle: ref.watch(homeNotifier).timeDifferent.toString(),
             ),
             const SizedBox(
               height: 8,

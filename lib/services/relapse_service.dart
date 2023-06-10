@@ -15,7 +15,7 @@ class RelapseService {
   final SharedPrefService sharedPrefService;
   void saveRelapseHistory(List<DateTime> list) async {
     final encode = jsonEncode(list.map((e) => e.toIso8601String()).toList());
-    myLogV2(encode);
+    myLog(encode);
     await sharedPrefService.pref.setString(
       SharedPrefEnum.relapseHistory.name,
       encode,
@@ -28,7 +28,7 @@ class RelapseService {
     );
     if (result == null) return [];
     final decode = jsonDecode(result);
-    myLogV2(decode);
+    myLog(decode);
     if (decode is! List) throw 'Wrong data type';
     return decode.map((e) => DateTime.parse(e)).toList();
   }

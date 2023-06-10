@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:init_flutter/init_flutter.dart';
 import 'package:rewire_app/services/relapse_service.dart';
@@ -7,9 +9,12 @@ final homeNotifier = StateNotifierProvider<HomeNotifier, HomeState>((ref) {
   return HomeNotifier(
     HomeState(
       relapseHistory: AsyncValueModel.initial([]),
+      timeDifferent: Duration.zero,
     ),
     ref.watch(relapseService),
-  )..getRelapseHistory();
+  )
+    ..getRelapseHistory()
+    ..getTimeDifferent();
 });
 
 class HomeNotifier extends StateNotifier<HomeState> {
@@ -19,8 +24,37 @@ class HomeNotifier extends StateNotifier<HomeState> {
   );
 
   final RelapseService _relapseService;
+  Timer? timer;
 
-  void getRelapseHistory() {
-    _relapseService.getRelapseHistory();
+  void getRelapseHistory() async {
+    state = state.copyWith(
+      relapseHistory: await state.relapseHistory.guard(
+        () async {
+          return _relapseService.getRelapseHistory();
+        },
+      ),
+    );
+  }
+
+  void saveRelapseHistory() {
+    _relapseService.saveRelapseHistory(
+      [
+        ...state.relapseHistory.value,
+        DateTime.now(),
+      ],
+    );
+    getRelapseHistory();
+  }
+
+  void getTimeDifferent() {
+    Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) {
+        final relapseHistory = state.relapseHistory.value;
+        if (relapseHistory.isEmpty) return;
+        state = state.copyWith(
+            timeDifferent: DateTime.now().difference(relapseHistory.last));
+      },
+    );
   }
 }

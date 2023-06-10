@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rewire_app/ui/home/home_notifier.dart';
 
-class RelapseView extends StatelessWidget {
+class RelapseView extends ConsumerStatefulWidget {
   const RelapseView({super.key});
 
   static dialog(
@@ -16,6 +18,11 @@ class RelapseView extends StatelessWidget {
     );
   }
 
+  @override
+  ConsumerState<RelapseView> createState() => _RelapseViewState();
+}
+
+class _RelapseViewState extends ConsumerState<RelapseView> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -60,7 +67,9 @@ class RelapseView extends StatelessWidget {
           ),
           TextButton(
             child: const Text('Relapse'),
-            onPressed: () {},
+            onPressed: () {
+              ref.read(homeNotifier.notifier).saveRelapseHistory();
+            },
           )
         ],
       ),

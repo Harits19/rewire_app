@@ -14,6 +14,9 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        ref.read(homeNotifier.notifier).reset();
+      }),
       body: Padding(
         padding: const EdgeInsets.all(32),
         child: Column(
@@ -40,14 +43,14 @@ class _HomePageState extends ConsumerState<HomePage> {
             ),
             _StreakDetail(
               title: 'Streak Sekarang : ',
-              subtitle: ref.watch(homeNotifier).timeDifferent.toString(),
+              duration: ref.watch(homeNotifier).streak,
             ),
             const SizedBox(
               height: 8,
             ),
-            const _StreakDetail(
+            _StreakDetail(
               title: 'Streak Terlama : ',
-              subtitle: '0h 8j 45m 8d',
+              duration: ref.watch(homeNotifier).longestStreak,
             ),
             const SizedBox(
               height: 16,
@@ -79,14 +82,19 @@ class _HomePageState extends ConsumerState<HomePage> {
 class _StreakDetail extends StatelessWidget {
   const _StreakDetail({
     required this.title,
-    required this.subtitle,
+    required this.duration,
   });
 
   final String title;
-  final String subtitle;
+  final Duration duration;
 
   @override
   Widget build(BuildContext context) {
+    final day = duration.inDays;
+    final hour = duration.inHours % 24;
+    final minute = duration.inMinutes % 60;
+    final second = duration.inSeconds % 60;
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -100,7 +108,7 @@ class _StreakDetail extends StatelessWidget {
               ),
             ),
             Text(
-              subtitle,
+              '${day}h ${hour}j ${minute}m ${second}d',
               style: const TextStyle(
                 fontSize: 16,
               ),

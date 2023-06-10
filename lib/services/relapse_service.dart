@@ -13,7 +13,7 @@ class RelapseService {
   RelapseService(this.sharedPrefService);
 
   final SharedPrefService sharedPrefService;
-  void saveRelapseHistory(List<DateTime> list) async {
+  Future<void> saveRelapseHistory(List<DateTime> list) async {
     final encode = jsonEncode(list.map((e) => e.toIso8601String()).toList());
     myLog(encode);
     await sharedPrefService.pref.setString(

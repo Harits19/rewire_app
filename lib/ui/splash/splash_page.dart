@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:init_flutter/init_flutter.dart';
+import 'package:rewire_app/services/shared_pref_service.dart';
+import 'package:rewire_app/ui/bottom_navigation/bottom_navigation_page.dart';
 
 class SplashPage extends ConsumerStatefulWidget {
   const SplashPage({super.key});
@@ -9,10 +12,13 @@ class SplashPage extends ConsumerStatefulWidget {
 }
 
 class _SplashPageState extends ConsumerState<SplashPage> {
-
   @override
   void initState() {
     super.initState();
+    WidgetUtil.checkWidget(() async {
+      await ref.read(sharedPrefService).init();
+      context.push(const BottomNavigationPage());
+    });
   }
 
   @override

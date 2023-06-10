@@ -157,10 +157,10 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: b51936387711af541cf49163dafaeb4653ee449e
+      resolved-ref: "9172ad9fd7ba82488dbb5a88d86be06b9993880a"
       url: "https://github.com/Harits19/init_flutter.git"
     source: git
-    version: "1.0.0+2"
+    version: "1.0.0+3"
   js:
     dependency: transitive
     description:

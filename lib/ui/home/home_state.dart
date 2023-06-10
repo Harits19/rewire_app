@@ -1,9 +1,9 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:init_flutter/init_flutter.dart';
 
 class HomeState {
-  final AsyncValue<String> result;
+  final AsyncValueModel<List<DateTime>> relapseHistory;
 
   HomeState({
-    required this.result,
+    required this.relapseHistory,
   });
 }

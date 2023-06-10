@@ -1,4 +1,4 @@
-package com.init_flutter
+package com.rewire_app
 
 import io.flutter.embedding.android.FlutterActivity
 

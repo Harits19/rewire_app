@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rewire_app/ui/home/home_notifier.dart';
 import 'package:rewire_app/ui/home/view/relapse_view.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -19,6 +20,11 @@ class _HomePageState extends ConsumerState<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            ...ref
+                .watch(homeNotifier)
+                .relapseHistory
+                .value
+                .map((e) => Text(e.toString())),
             Text(
               '0',
               textAlign: TextAlign.center,

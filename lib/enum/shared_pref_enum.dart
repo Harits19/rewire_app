@@ -1,0 +1,4 @@
+
+enum SharedPrefEnum{
+  relapseHistory,
+}

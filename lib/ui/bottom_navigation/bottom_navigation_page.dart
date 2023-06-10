@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:init_flutter/ui/home/home_page.dart';
 import 'package:rewire_app/enum/bot_nav_enum.dart';
 import 'package:rewire_app/models/bot_nav_model.dart';
 import 'package:rewire_app/ui/bottom_navigation/bottom_navigation_notifier.dart';
+import 'package:rewire_app/ui/home/home_page.dart';
 import 'package:rewire_app/ui/statistic/statistic_page.dart';
 
 class BottomNavigationPage extends ConsumerStatefulWidget {

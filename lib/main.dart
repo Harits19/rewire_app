@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rewire_app/ui/bottom_navigation/bottom_navigation_page.dart';
+import 'package:rewire_app/ui/splash/splash_page.dart';
 
 void main() async {
   runApp(
@@ -18,7 +18,6 @@ class MyApp extends ConsumerStatefulWidget {
 }
 
 class _MyAppState extends ConsumerState<MyApp> {
-
   @override
   Widget build(BuildContext context) {
     final card =
@@ -37,7 +36,7 @@ class _MyAppState extends ConsumerState<MyApp> {
           shape: card,
         ),
       ),
-      home: const BottomNavigationPage(),
+      home: const SplashPage(),
     );
   }
 }

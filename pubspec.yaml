@@ -39,7 +39,7 @@ dependencies:
   init_flutter:
     git:
       url: https://github.com/Harits19/init_flutter.git
-      ref: 86a3cee # branch name
+      ref: main # branch name
 
 dev_dependencies:
   change_app_package_name: ^1.0.0

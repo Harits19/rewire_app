@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:init_flutter/ui/views/gap.dart';
 import 'package:rewire_app/ui/home/view/relapse_view.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -27,23 +26,31 @@ class _HomePageState extends ConsumerState<HomePage> {
                     fontSize: 80,
                   ),
             ),
-            Gap.v8,
+            const SizedBox(
+              height: 8,
+            ),
             Text(
               'Hari',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
-            Gap.v16,
+            const SizedBox(
+              height: 16,
+            ),
             const _StreakDetail(
               title: 'Streak Sekarang : ',
               subtitle: '0h 8j 45m 8d',
             ),
-            Gap.v8,
+            const SizedBox(
+              height: 8,
+            ),
             const _StreakDetail(
               title: 'Streak Terlama : ',
               subtitle: '0h 8j 45m 8d',
             ),
-            Gap.v16,
+            const SizedBox(
+              height: 16,
+            ),
             TextButton(
               onPressed: () {
                 RelapseView.dialog(

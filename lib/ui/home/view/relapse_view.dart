@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:init_flutter/ui/views/gap.dart';
 
 class RelapseView extends StatelessWidget {
   const RelapseView({super.key});
@@ -26,7 +25,9 @@ class RelapseView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const Text('Tetapkan waktu relapse'),
-          Gap.s12,
+          const SizedBox(
+            height: 12,
+          ),
           Row(
             children: [
               Expanded(

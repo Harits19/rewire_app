@@ -12,6 +12,6 @@ extension DurationExtension on Duration {
 
 extension ListDurationExtension on List<Duration> {
   Duration biggest() {
-    return Duration(seconds: this.map((e) => e.inSeconds).reduce(max));
+    return Duration(seconds: map((e) => e.inSeconds).reduce(max));
   }
 }

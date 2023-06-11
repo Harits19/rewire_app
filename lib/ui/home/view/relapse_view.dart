@@ -58,8 +58,6 @@ class _RelapseViewState extends ConsumerState<RelapseView> {
                         context: context,
                         initialTime: timeOfDay,
                       );
-                      print(now.inMinute());
-                      print(selectedTime?.inMinute());
                       if (selectedTime == null) return;
                       if (selectedTime > now) {
                         SnackbarWidget.showError(

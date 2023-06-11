@@ -121,7 +121,7 @@ class _StreakDetail extends StatelessWidget {
               ),
             ),
             Text(
-              duration.compactText(),
+              duration.toCompactText(),
               style: const TextStyle(
                 fontSize: 16,
               ),

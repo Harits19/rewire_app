@@ -4,6 +4,8 @@ import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:init_flutter/init_flutter.dart';
 import 'package:init_flutter/utils/my_log_util.dart';
+import 'package:rewire_app/extensions/datetime_extension.dart';
+import 'package:rewire_app/extensions/duration_extension.dart';
 import 'package:rewire_app/services/relapse_service.dart';
 import 'package:rewire_app/ui/home/home_state.dart';
 
@@ -83,23 +85,11 @@ class HomeNotifier extends StateNotifier<HomeState> {
       (timer) {
         final relapseHistory = state.relapseHistory.value;
         if (relapseHistory.isEmpty) return;
-        final longestStreak = <Duration>[];
         final streak = dtNow.difference(relapseHistory.last);
-        for (int index = 0; index < relapseHistory.length; index++) {
-          final item = relapseHistory[index];
-          if (index == relapseHistory.length - 1) {
-            longestStreak.add(dtNow.difference(item));
-            continue;
-          }
-
-          longestStreak.add(relapseHistory[index + 1].difference(item));
-        }
-        // myLog(longestStreak);
+        final longestStreak = relapseHistory.getDifferent();
         state = state.copyWith(
           streak: streak,
-          longestStreak: Duration(
-            seconds: longestStreak.map((e) => e.inSeconds).reduce(max),
-          ),
+          longestStreak: longestStreak.biggest(),
         );
       },
     );

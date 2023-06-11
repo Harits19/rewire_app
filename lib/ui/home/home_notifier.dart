@@ -39,23 +39,35 @@ class HomeNotifier extends StateNotifier<HomeState> {
       ),
     );
     if (state.relapseHistory.value.isEmpty) {
-      await saveRelapseHistory();
+      await saveRelapseHistory(dtNow);
     }
   }
 
-  Future<void> saveRelapseHistory() async {
+  Future<void> saveRelapseHistory(DateTime selectedDate) async {
     final tempValue = state.relapseHistory.value;
     state = state.copyWith(
       relapseHistory: state.relapseHistory.loading(),
     );
-    myLog('saveRelapseHistory $dtNow');
-    await _relapseService.saveRelapseHistory(
-      [
-        ...tempValue,
-        dtNow,
-      ],
-    );
-    getRelapseHistory();
+    try {
+      if (tempValue.isNotEmpty) {
+        final lastDate = tempValue.last;
+        if (selectedDate.isBefore(lastDate)) {
+          throw 'Tanggal terpilih tidak boleh lebih kecil dari tanggal kemarin';
+        }
+      }
+      myLog('saveRelapseHistory $dtNow');
+      await _relapseService.saveRelapseHistory(
+        [
+          ...tempValue,
+          selectedDate,
+        ],
+      );
+      getRelapseHistory();
+    } catch (e) {
+      state = state.copyWith(
+        relapseHistory: state.relapseHistory.setError(e),
+      );
+    }
   }
 
   DateTime get dtNow => DateTime.now();

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:init_flutter/init_flutter.dart';
+import 'package:rewire_app/extensions/duration_extension.dart';
 import 'package:rewire_app/ui/home/home_notifier.dart';
 import 'package:rewire_app/ui/home/view/relapse_view.dart';
 
@@ -13,6 +15,22 @@ class HomePage extends ConsumerStatefulWidget {
 class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final hWatch = ref.watch(homeNotifier);
+
+    ref.listen(
+      homeNotifier.select((value) => value.relapseHistory),
+      (previous, next) {
+        if (next.isLoading) {
+          LoadingWidget.dialog(context);
+        } else if (previous != null && previous.isLoading) {
+          WidgetUtil.safePop(context);
+        }
+        if (next.hasError) {
+          SnackbarWidget.showError(context, next.error);
+        }
+      },
+    );
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(onPressed: () {
         ref.read(homeNotifier.notifier).reset();
@@ -24,7 +42,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              '0',
+              hWatch.streak.inDays.toString(),
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                     fontSize: 80,
@@ -43,14 +61,14 @@ class _HomePageState extends ConsumerState<HomePage> {
             ),
             _StreakDetail(
               title: 'Streak Sekarang : ',
-              duration: ref.watch(homeNotifier).streak,
+              duration: hWatch.streak,
             ),
             const SizedBox(
               height: 8,
             ),
             _StreakDetail(
               title: 'Streak Terlama : ',
-              duration: ref.watch(homeNotifier).longestStreak,
+              duration: hWatch.longestStreak,
             ),
             const SizedBox(
               height: 16,
@@ -90,11 +108,6 @@ class _StreakDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final day = duration.inDays;
-    final hour = duration.inHours % 24;
-    final minute = duration.inMinutes % 60;
-    final second = duration.inSeconds % 60;
-
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -108,7 +121,7 @@ class _StreakDetail extends StatelessWidget {
               ),
             ),
             Text(
-              '${day}h ${hour}j ${minute}m ${second}d',
+              duration.compactText(),
               style: const TextStyle(
                 fontSize: 16,
               ),

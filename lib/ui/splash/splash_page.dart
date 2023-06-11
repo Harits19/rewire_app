@@ -17,7 +17,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
     super.initState();
     WidgetUtil.checkWidget(() async {
       await ref.read(sharedPrefService).init();
-      context.push(const BottomNavigationPage());
+      context.popAll(const BottomNavigationPage());
     });
   }
 

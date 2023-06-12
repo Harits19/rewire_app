@@ -32,9 +32,9 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        ref.read(homeNotifier.notifier).reset();
-      }),
+      // floatingActionButton: FloatingActionButton(onPressed: () {
+      //   ref.read(homeNotifier.notifier).reset();
+      // }),
       body: Padding(
         padding: const EdgeInsets.all(32),
         child: Column(

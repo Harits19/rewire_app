@@ -1,6 +1,5 @@
-
-
-enum BotNavEnum{
+enum BotNavEnum {
   home,
   statistic,
+  history,
 }

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rewire_app/enum/bot_nav_enum.dart';
 import 'package:rewire_app/models/bot_nav_model.dart';
 import 'package:rewire_app/ui/bottom_navigation/bottom_navigation_notifier.dart';
+import 'package:rewire_app/ui/history/history_page.dart';
 import 'package:rewire_app/ui/home/home_page.dart';
 import 'package:rewire_app/ui/statistic/statistic_page.dart';
 
@@ -54,6 +55,12 @@ extension BotNavEnumExtension on BotNavEnum {
           label: 'Statistic',
           iconData: Icons.bar_chart,
           body: const StatisticPage(),
+        );
+      case BotNavEnum.history:
+        return BotNavModel(
+          label: 'History',
+          iconData: Icons.history,
+          body: const HistoryPage(),
         );
       default:
         throw UnimplementedError();

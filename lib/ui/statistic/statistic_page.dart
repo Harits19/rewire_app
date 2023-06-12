@@ -21,7 +21,7 @@ class _StatisticPageState extends ConsumerState<StatisticPage> {
   Widget build(BuildContext context) {
     final relapseHistory = ref.watch(homeNotifier).relapseHistory.value;
     final dateRange = relapseHistory.toDateRange();
-    final isSmallData = relapseHistory.length > 5;
+    final isSmallData = relapseHistory.length > 3;
     // print(dateRange);
     return Scaffold(
       body: SafeArea(
@@ -31,7 +31,7 @@ class _StatisticPageState extends ConsumerState<StatisticPage> {
           scrollDirection: Axis.horizontal,
           child: SizedBox(
             width: isSmallData
-                ? context.mSize.width / 5 * relapseHistory.length
+                ? context.mSize.width / 3 * relapseHistory.length
                 : context.mSize.width,
             child: BarChart(
               BarChartData(
@@ -82,13 +82,17 @@ class _StatisticPageState extends ConsumerState<StatisticPage> {
                       getTitlesWidget: (value, meta) {
                         final item = dateRange[value.toInt()];
                         String format(DateTime date) {
-                          return DateFormat('dd MMM yy').format(date);
+                          return DateFormat('dd MMM yy \n')
+                              .add_jm()
+                              .format(date);
                         }
 
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                              '${format(item.start)} -\n${format(item.end)}'),
+                            format(item.end),
+                            textAlign: TextAlign.center,
+                          ),
                         );
                       },
                       showTitles: true,
@@ -105,6 +109,9 @@ class _StatisticPageState extends ConsumerState<StatisticPage> {
                         barRods: [
                           BarChartRodData(
                             toY: date.duration.inSeconds.toDouble(),
+                            color: index == (dateRange.length - 1)
+                                ? Colors.red
+                                : null,
                           ),
                         ],
                       );

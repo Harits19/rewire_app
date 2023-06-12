@@ -23,9 +23,17 @@ class _HistoryPageState extends ConsumerState<HistoryPage> {
               ...ref.watch(homeNotifier).relapseHistory.value.map(
                     (e) => Card(
                       child: ListTile(
-                        title: Text(
-                          DateFormat('EEEE, dd MMMM yyyy').add_jms().format(e),
-                          textAlign: TextAlign.center,
+                        title: Column(
+                          children: [
+                            Text(
+                              DateFormat('EEEE, dd MMMM yyyy').add_jms().format(e.start),
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              DateFormat('EEEE, dd MMMM yyyy').add_jms().format(e.end),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
                         ),
                       ),
                     ),

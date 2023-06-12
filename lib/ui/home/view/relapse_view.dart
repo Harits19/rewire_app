@@ -109,13 +109,13 @@ class _RelapseViewState extends ConsumerState<RelapseView> {
           TextButton(
             child: const Text('Relapse'),
             onPressed: () {
-              ref.read(homeNotifier.notifier).saveRelapseHistory(
-                    dateTime.copyWith(
-                      hour: timeOfDay.hour,
-                      minute: timeOfDay.minute,
-                      second: 0,
-                    ),
-                  );
+              final finalValue = dateTime.copyWith(
+                hour: timeOfDay.hour,
+                minute: timeOfDay.minute,
+                second: DateTime.now().second,
+              );
+              ref.read(homeNotifier.notifier).saveRelapseHistory(finalValue);
+
               Navigator.pop(context);
             },
           )

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:init_flutter/init_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:rewire_app/extensions/datetime_extension.dart';
 import 'package:rewire_app/extensions/duration_extension.dart';
 import 'package:rewire_app/ui/home/home_notifier.dart';
 
@@ -20,7 +19,6 @@ class _StatisticPageState extends ConsumerState<StatisticPage> {
   @override
   Widget build(BuildContext context) {
     final relapseHistory = ref.watch(homeNotifier).relapseHistory.value;
-    final dateRange = relapseHistory.toDateRange();
     final isSmallData = relapseHistory.length > 3;
     // print(dateRange);
     return Scaffold(
@@ -35,7 +33,7 @@ class _StatisticPageState extends ConsumerState<StatisticPage> {
                 : context.mSize.width,
             child: BarChart(
               BarChartData(
-                maxY: dateRange
+                maxY: relapseHistory
                             .map((e) => e.duration)
                             .toList()
                             .biggest()
@@ -56,7 +54,7 @@ class _StatisticPageState extends ConsumerState<StatisticPage> {
                     tooltipBgColor: Theme.of(context).cardColor,
                     getTooltipItem: (group, groupIndex, rod, rodIndex) {
                       return BarTooltipItem(
-                        dateRange[groupIndex].duration.toCompactText(),
+                        relapseHistory[groupIndex].duration.toCompactText(),
                         const TextStyle(),
                       );
                     },
@@ -80,7 +78,7 @@ class _StatisticPageState extends ConsumerState<StatisticPage> {
                     sideTitles: SideTitles(
                       reservedSize: 48,
                       getTitlesWidget: (value, meta) {
-                        final item = dateRange[value.toInt()];
+                        final item = relapseHistory[value.toInt()];
                         String format(DateTime date) {
                           return DateFormat('dd MMM yy \n')
                               .add_jm()
@@ -101,15 +99,15 @@ class _StatisticPageState extends ConsumerState<StatisticPage> {
                 ),
                 barGroups: [
                   ...List.generate(
-                    dateRange.length,
+                    relapseHistory.length,
                     (index) {
-                      final date = dateRange[index];
+                      final date = relapseHistory[index];
                       return BarChartGroupData(
                         x: index,
                         barRods: [
                           BarChartRodData(
                             toY: date.duration.inSeconds.toDouble(),
-                            color: index == (dateRange.length - 1)
+                            color: index == (relapseHistory.length - 1)
                                 ? Colors.red
                                 : null,
                           ),

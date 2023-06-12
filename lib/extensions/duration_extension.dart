@@ -12,6 +12,7 @@ extension DurationExtension on Duration {
 
 extension ListDurationExtension on List<Duration> {
   Duration biggest() {
+    if (isEmpty) return Duration.zero;
     return Duration(seconds: map((e) => e.inSeconds).reduce(max));
   }
 }

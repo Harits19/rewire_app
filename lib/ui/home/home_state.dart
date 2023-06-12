@@ -1,24 +1,26 @@
+import 'package:flutter/material.dart';
 import 'package:init_flutter/init_flutter.dart';
+import 'package:rewire_app/extensions/duration_extension.dart';
 
 class HomeState {
-  final AsyncValueModel<List<DateTime>> relapseHistory;
-  final Duration streak;
-  final Duration longestStreak;
+  final AsyncValueModel<List<DateTimeRange>> relapseHistory;
 
   HomeState({
     required this.relapseHistory,
-    required this.streak,
-    required this.longestStreak,
   });
 
-  HomeState copyWith(
-      {AsyncValueModel<List<DateTime>>? relapseHistory,
-      Duration? streak,
-      Duration? longestStreak,}) {
+  HomeState copyWith({
+    AsyncValueModel<List<DateTimeRange>>? relapseHistory,
+  }) {
     return HomeState(
       relapseHistory: relapseHistory ?? this.relapseHistory,
-      streak: streak ?? this.streak,
-      longestStreak: longestStreak ?? this.longestStreak,
     );
   }
+
+  Duration get longestStreak =>
+      relapseHistory.value.map((e) => e.duration).toList().biggest();
+
+  Duration get streak => (relapseHistory.value.isNotEmpty
+      ? DateTime.now().difference(relapseHistory.value.last.start)
+      : Duration.zero);
 }

@@ -76,19 +76,19 @@ class _StatisticPageState extends ConsumerState<StatisticPage> {
                   ),
                   bottomTitles: AxisTitles(
                     sideTitles: SideTitles(
-                      reservedSize: 48,
+                      reservedSize: 96,
                       getTitlesWidget: (value, meta) {
                         final item = relapseHistory[value.toInt()];
                         String format(DateTime date) {
                           return DateFormat('dd MMM yy \n')
-                              .add_jm()
+                              .add_jms()
                               .format(date);
                         }
 
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            format(item.end),
+                            '${format(item.start)}\n-\n${format(item.end)}',
                             textAlign: TextAlign.center,
                           ),
                         );

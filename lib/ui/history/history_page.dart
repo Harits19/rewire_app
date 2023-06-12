@@ -25,14 +25,18 @@ class _HistoryPageState extends ConsumerState<HistoryPage> {
                       child: ListTile(
                         title: Column(
                           children: [
-                            Text(
-                              DateFormat('EEEE, dd MMMM yyyy').add_jms().format(e.start),
-                              textAlign: TextAlign.center,
+                            _Detail(
+                              title: 'Start',
+                              value: DateFormat('EEEE, dd MMMM yyyy')
+                                  .add_jms()
+                                  .format(e.start),
                             ),
-                            Text(
-                              DateFormat('EEEE, dd MMMM yyyy').add_jms().format(e.end),
-                              textAlign: TextAlign.center,
-                            ),
+                            _Detail(
+                              title: 'End',
+                              value: DateFormat('EEEE, dd MMMM yyyy')
+                                  .add_jms()
+                                  .format(e.end),
+                            )
                           ],
                         ),
                       ),
@@ -42,6 +46,27 @@ class _HistoryPageState extends ConsumerState<HistoryPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _Detail extends StatelessWidget {
+  const _Detail({
+    required this.title,
+    required this.value,
+  });
+
+  final String title, value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(child: Text(title)),
+        Text(
+          ' : $value',
+        ),
+      ],
     );
   }
 }
